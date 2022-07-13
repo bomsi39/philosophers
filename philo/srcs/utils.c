@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:20:20 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/13 00:07:37 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/13 22:07:12 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	sleep_good(int time, t_prop *dat)
 		usleep(50);
 	}
 }
-
-
 
 time_t	time_ms(void)
 {

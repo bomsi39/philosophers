@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:22:34 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/13 00:08:01 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/13 22:06:56 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,13 @@ void	dest_mut_free(t_prop *dat)
 	int	i;
 
 	i = -1;
+	if (dat->ph_no == 1)
+		pthread_mutex_unlock(&dat->forks[0]);
 	while (++i < dat->ph_no)
-	{
-		pthread_mutex_unlock(&dat->forks[i]);
 		pthread_mutex_destroy(&dat->forks[i]);
-	}
-	pthread_mutex_unlock(&dat->death_lock);
 	pthread_mutex_destroy(&dat->death_lock);
-	pthread_mutex_unlock(&dat->meal_lock);
 	pthread_mutex_destroy(&dat->meal_lock);
-	pthread_mutex_unlock(&dat->write_lock);
 	pthread_mutex_destroy(&dat->write_lock);
-	pthread_mutex_unlock(&dat->read_time);
 	pthread_mutex_destroy(&dat->read_time);
 	free(dat->philos);
 	free(dat->forks);
