@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:20:20 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/13 22:07:12 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/15 10:41:14 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,17 @@ void	sleep_good(int time, t_prop *dat)
 	time_t	i;
 
 	i = time_ms();
-	while (!check_death(dat))
+	while (!check_meal_death(dat))
 	{
 		if (time_ms() - i >= time)
 			break ;
 		usleep(50);
 	}
 }
+
+/*
+
+*/
 
 time_t	time_ms(void)
 {

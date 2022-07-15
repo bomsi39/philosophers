@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:34:00 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/13 00:12:05 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/15 10:40:23 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	check_meals(t_prop *dat)
 	}
 	while (++i < dat->ph_no)
 	{
-		if (dat->meals_must_eat >= dat->philos[i].finished_meals)
+		if (dat->meals_must_eat > dat->philos[i].finished_meals)
 		{
 			pthread_mutex_unlock(&dat->meal_lock);
 			return (false);
@@ -55,3 +55,11 @@ bool	check_meals(t_prop *dat)
 Checks every philo, if he reaches the desired amount of meals.
 If one philo doesn't match the requirement, check_meals returns false.
 */
+
+bool	check_meal_death(t_prop *dat)
+{
+	if (!check_death(dat) && !check_meals(dat))
+		return (false);
+	else
+		return (true);
+}

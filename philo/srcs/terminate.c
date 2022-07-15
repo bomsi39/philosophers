@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:22:34 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/13 22:06:56 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/14 12:49:15 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	terminate(int error)
 	}
 	else if (error == 2)
 		write(1, "Error: only positive integers are accepted as input\n", 52);
+	else if (error == 3)
+		write(1, "Error: pthread could not be created\n", 37);
 	exit(0);
 }
 

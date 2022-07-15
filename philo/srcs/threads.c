@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:14:18 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/13 00:05:34 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/15 10:39:27 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*philo_thread(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->idx % 2 == 1)
 		usleep(1000);
-	while (!check_death(philo->dat) && !check_meals(philo->dat))
+	while (!check_meal_death(philo->dat))
 	{
 		eat(philo);
 		sleep_think(philo);
@@ -40,7 +40,7 @@ void	*death_finder(void *arg)
 	long		time_diff;
 
 	philo = (t_philo *)arg;
-	while (!check_death(philo->dat) && !check_meals(philo->dat))
+	while (!check_meal_death(philo->dat))
 	{
 		i = 0;
 		while (i < philo->dat->ph_no)
@@ -50,7 +50,7 @@ void	*death_finder(void *arg)
 			pthread_mutex_unlock(&philo->dat->read_time);
 			if (time_diff > philo->dat->ttd)
 			{
-				write_state(5, philo);
+				write_state(dies, philo);
 				pthread_mutex_lock(&philo->dat->death_lock);
 				philo->dat->dead = true;
 				pthread_mutex_unlock(&philo->dat->death_lock);
@@ -78,13 +78,15 @@ void	create_philos(t_prop *dat)
 	i = -1;
 	while (++i < dat->ph_no)
 	{
-		pthread_create(&thread[i], NULL, &philo_thread,
-			(void *)&dat->philos[i]);
+		if (pthread_create(&thread[i], NULL, &philo_thread,
+				(void *)&dat->philos[i]))
+			terminate(3);
 		pthread_mutex_lock(&dat->read_time);
 		dat->philos[i].last_meal = time_ms();
 		pthread_mutex_unlock(&dat->read_time);
 	}
-	pthread_create(&status, NULL, &death_finder, (void *)dat->philos);
+	if (pthread_create(&status, NULL, &death_finder, (void *)dat->philos))
+		terminate(3);
 	pthread_join(status, NULL);
 	i = -1;
 	while (++i < dat->ph_no)

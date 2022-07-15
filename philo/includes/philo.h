@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 15:03:06 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/12 23:50:23 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/15 10:42:52 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 # include <string.h>
 # include <stdlib.h>
 # include <stdbool.h>
+
+enum	e_states
+{
+	frk,
+	eats,
+	sleeps,
+	thinks,
+	dies,
+};
 
 struct	s_prop;
 
@@ -65,8 +74,7 @@ void	init_philos(t_prop *dat);
 
 /* Threads */
 void	create_philos(t_prop *dat);
-bool	check_death(t_prop *dat);
-bool	check_meals(t_prop *dat);
+bool	check_meal_death(t_prop *dat);
 
 /* States */
 void	eat(t_philo *philo);

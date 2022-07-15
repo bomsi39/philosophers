@@ -6,7 +6,7 @@
 #    By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 18:24:09 by dfranke           #+#    #+#              #
-#    Updated: 2022/07/12 23:48:15 by dfranke          ###   ########.fr        #
+#    Updated: 2022/07/15 10:31:59 by dfranke          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,12 @@ FILES:= \
 #-------libft--------
 LIBFT_DIR:=./libft/
 
-CC:=gcc -pthread
+CC:=gcc
 SOURCES_DIR:=srcs/
 HEADER_DIR:=includes/
 OBJECTS_DIR:=objs/
 IFLAGS:=-I $(HEADER_DIR)
-CFLAGS:=-Wall -Werror -Wextra $(IFLAGS)
+CFLAGS:=-Wall -Werror -Wextra $(IFLAGS) -pthread
 
 #------Paths---------
 SOURCES:=$(addprefix $(SOURCES_DIR),$(addsuffix .c,$(FILES)))
