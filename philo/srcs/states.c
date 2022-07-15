@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:17:28 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/15 10:38:48 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/15 12:21:08 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,35 @@ void	sleep_think(t_philo *philo)
 eat and think process
 */
 
-void	eat(t_philo *philo)
+void	take_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->dat->forks[philo->l_fo]);
-	write_state(frk, philo);
+	if (philo->idx % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->dat->forks[philo->l_fo]);
+		write_state(frk, philo);
+	}
 	if (philo->r_fo == philo->l_fo)
 	{
 		usleep(1000 * philo->dat->ttd);
 		return ;
 	}
 	pthread_mutex_lock(&philo->dat->forks[philo->r_fo]);
+	if (philo->idx % 2 == 1)
+	{
+		pthread_mutex_lock(&philo->dat->forks[philo->l_fo]);
+		write_state(frk, philo);
+	}
 	write_state(frk, philo);
+}
+
+/*
+Manages that philos with an odd number take the left fork first, then the right
+fork and philos with an even number take the right fork first and then the left
+*/
+
+void	eat(t_philo *philo)
+{
+	take_forks(philo);
 	write_state(eats, philo);
 	pthread_mutex_lock(&philo->dat->read_time);
 	philo->last_meal = time_ms();
