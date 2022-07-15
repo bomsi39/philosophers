@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:17:28 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/15 12:21:08 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/15 12:22:21 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ eat and think process
 
 void	take_forks(t_philo *philo)
 {
-	if (philo->idx % 2 == 0)
+	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_lock(&philo->dat->forks[philo->l_fo]);
 		write_state(frk, philo);
@@ -59,7 +59,7 @@ void	take_forks(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_lock(&philo->dat->forks[philo->r_fo]);
-	if (philo->idx % 2 == 1)
+	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->dat->forks[philo->l_fo]);
 		write_state(frk, philo);

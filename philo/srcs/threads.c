@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:14:18 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/15 10:39:27 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/15 12:23:41 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*philo_thread(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->idx % 2 == 1)
+	if (philo->id % 2 == 0)
 		usleep(1000);
 	while (!check_meal_death(philo->dat))
 	{
