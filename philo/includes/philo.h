@@ -38,12 +38,7 @@ typedef struct s_philos
 {
 	int					idx;
 	int					id;
-	int					total_philos;
 	int					finished_meals;
-	int					meals_must_eat;
-	int					tte;
-	int					tts;
-	int					ttd;
 	long				last_meal;
 	int					l_fo;
 	int					r_fo;

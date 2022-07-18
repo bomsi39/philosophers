@@ -46,17 +46,18 @@ void	sleep_think(t_philo *philo)
 eat and think process
 */
 
-void	take_forks(t_philo *philo)
+bool	take_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_lock(&philo->dat->forks[philo->l_fo]);
-		write_state(frk, philo);
-	}
-	if (philo->r_fo == philo->l_fo)
-	{
-		usleep(1000 * philo->dat->ttd);
-		return ;
+	 	write_state(frk, philo);
+		if (philo->r_fo == philo->l_fo)
+		{
+			usleep(1500 * philo->dat->ttd);
+			pthread_mutex_unlock(&philo->dat->forks[philo->l_fo]);
+			return (false);
+		}
 	}
 	pthread_mutex_lock(&philo->dat->forks[philo->r_fo]);
 	if (philo->id % 2 == 0)
@@ -65,6 +66,7 @@ void	take_forks(t_philo *philo)
 		write_state(frk, philo);
 	}
 	write_state(frk, philo);
+	return (true);
 }
 
 /*
@@ -74,7 +76,8 @@ fork and philos with an even number take the right fork first and then the left
 
 void	eat(t_philo *philo)
 {
-	take_forks(philo);
+	if (!take_forks(philo))
+		return ;
 	write_state(eats, philo);
 	pthread_mutex_lock(&philo->dat->read_time);
 	philo->last_meal = time_ms();

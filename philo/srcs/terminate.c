@@ -40,8 +40,6 @@ void	dest_mut_free(t_prop *dat)
 	int	i;
 
 	i = -1;
-	if (dat->ph_no == 1)
-		pthread_mutex_unlock(&dat->forks[0]);
 	while (++i < dat->ph_no)
 		pthread_mutex_destroy(&dat->forks[i]);
 	pthread_mutex_destroy(&dat->death_lock);
